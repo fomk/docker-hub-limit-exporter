@@ -21,14 +21,18 @@ RUN CGO_ENABLED=0 GOOS=linux \
 
 FROM scratch
 
+ARG CI_DATE
+ARG CI_COMMIT_REF_NAME
+ARG CI_COMMIT_SHA
+
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt \
      /etc/ssl/certs/ca-certificates.crt
 
 COPY --from=builder /build/docker-hub-limit-expoter /docker-hub-limit-expoter
-LABEL org.opencontainers.image.created=${CI_DATE}
+LABEL org.opencontainers.image.created="${CI_DATE}"
 LABEL org.opencontainers.image.authors="Konstantin Fomin <konst@mhn.lv>"
-LABEL org.opencontainers.image.version=${CI_COMMIT_REF_NAME}
-LABEL org.opencontainers.image.revision=${CI_COMMIT_SHA}
+LABEL org.opencontainers.image.version="${CI_COMMIT_REF_NAME}"
+LABEL org.opencontainers.image.revision="${CI_COMMIT_SHA}"
 LABEL org.opencontainers.image.title="Docker hub limit exporter"
 LABEL org.opencontainers.image.source="https://github.com/fomk/docker-hub-limit-exporter"
 
