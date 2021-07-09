@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BUILD_DATE=`date +"%Y-%m-%dT%H:%M:%S%:z"`
+
+docker build . --build-arg CI_DATE=${BUILD_DATE} --build-arg CI_COMMIT_REF_NAME=${SOURCE_BRANCH} --build-arg CI_COMMIT_SHA=${SOURCE_COMMIT} -t ${IMAGE_NAME}
